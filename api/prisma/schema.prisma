@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./db-teste.db"
+}
+
+model usuario {
+  cod_usuario Int    @id @default(autoincrement())
+  des_email   String
+  des_senha   String
+  flg_inativo Int    @default(0)
+}
+
+model cliente {
+  cod_cliente         Int     @id @default(autoincrement())
+  des_nome            String
+  flg_inativo         Int     @default(0)
+  des_endereco        String
+  num_endereco        String?
+  des_cidade          String
+  des_uf              String
+  des_telefone        String
+  des_contato         String
+  val_venda_acumulado Decimal @default(0)
+  qtd_venda_pedidos   Int     @default(0)
+  dta_ult_pedido      String
+  dta_cadastro        String
+  dta_alteracao       String  
+}
+
+model venda {
+  cod_venda        Int     @id @default(autoincrement())
+  cod_cliente      Int
+  dta_venda_       String  @map("dta_venda ")
+  val_total_venda_ Decimal @map("val_total_venda ")
+}
+
+model venda_item {
+  cod_item     Int     @id @default(autoincrement())
+  cod_venda    Int
+  des_produto  String
+  val_unitario Decimal
+  qtd_itens    Decimal
+  val_total    Decimal
+  dta_cadastro String
+}
